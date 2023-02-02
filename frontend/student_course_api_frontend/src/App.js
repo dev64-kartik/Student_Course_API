@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import {Link, Routes,Route, Navigate} from "react-router-dom"
 import StudentMain from './components/Student/StudentMain';
 import CourseDashboard from './components/Course/CourseDashboard';
+import StudentDashboard from './components/Student/StudentDashboard';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       
       <Route path="/" element={<Navigate to="/students"/>}/>
       <Route path="/students" element={<StudentMain/>}/>
+      <Route path="/students/:id" element={<StudentDashboard/>}/>
       {/* <Route path="/students/:id" element={}/> */}
       { /* <Route
           path="/students/view-student"

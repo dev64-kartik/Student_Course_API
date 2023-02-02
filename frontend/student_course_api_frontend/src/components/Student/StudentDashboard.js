@@ -4,15 +4,34 @@ import CourseCard from "../Course/CourseFormelements/CourseCard";
 import CourseModal from "../Course/CourseModal";
 import Notification from "../Notification";
 import EditStudentModal from "./EditStudentModal";
+import {useLocation,useParams} from "react-router-dom";
 
 const bootstrap = window.bootstrap;
 
 export default function StudentDashboard(props)
 {   
-    const [coursedata,setCoursedata] = React.useState(props.data.enrolledCourses);
+    const location = useLocation();
+    const params = useParams();
+    const [coursedata,setCoursedata] = React.useState(props.data ? props.data.enrolledCourses : (location.state ? location.state.enrolledCourses : []));
     const [studentdata, setStudentdata] = React.useState({
-        ...props.data
+        ...props.data || location.state || {}
     })
+    
+    React.useEffect(()=>{
+        if(props.data === undefined && location.state === null)
+        {
+            axios.get(`http://localhost:8080/students/${params.id}`)
+            .then(res=>{
+                setStudentdata({name:res.data.name, id:res.data.id, college:res.data.college})
+                setCoursedata(res.data.enrolledCourses);
+            })
+            .catch(err=>{
+                
+            })
+        }
+    },[])
+    
+    
     
     function unenrollFromCourse(courseId)
     {   

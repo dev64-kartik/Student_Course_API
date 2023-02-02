@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function StudentName() {
-  const [name, setname] = React.useState("");
+export default function StudentName(props) {
+  const [name, setname] = React.useState(props.name);
 
   return (
     <div className="row g-1 mb-3 form-element">

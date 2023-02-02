@@ -112,7 +112,7 @@ export default function StudentDashboard(props)
         </p>
         <CourseCard data={coursedata} unenroll={unenrollFromCourse}/>
         <CourseModal enroll={enrollIntoCourses}/>
-        <EditStudentModal editStudent={editStudent}/>
+        <EditStudentModal editStudent={editStudent} name={studentdata.name} college={studentdata.college}/>
         <Notification info={true} role="notification-info-courseenrolled" message="Succesfully Enrolled in Courses !"/>
         <Notification info={true} role="notification-info-studentupdated" message="Student Profile Updated Successfully !"/>
         <Notification warning={true} role="notification-warning-coursealreadyenrolled"/>

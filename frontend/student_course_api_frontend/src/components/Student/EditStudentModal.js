@@ -27,8 +27,8 @@ export default function EditStudentModal(props)
             </div>
             <div class="modal-body">
             <form className="form" id="updatestudent" onSubmit={handleSubmit}>
-              <StudentName />
-              <StudentCollege />
+              <StudentName name={props.name}/>
+              <StudentCollege college={props.college} />
               </form>
             </div>
             <div class="modal-footer">

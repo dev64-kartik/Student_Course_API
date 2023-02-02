@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function StudentCollege()
+export default function StudentCollege(props)
 {
-    const [college,setCollege] = React.useState("");
+    const [college,setCollege] = React.useState(props.college);
     
     return(
         <div className='row g-1 mb-3 form-element'>

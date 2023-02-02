@@ -1,0 +1,137 @@
+.mynav > .nav-item > a{
+  color:white;
+}
+
+
+.mynav > .active > a{
+  
+   color:black;
+   background-color:bisque;
+   
+
+}
+
+.mynav > li{
+  margin-right: 25px;
+  margin-left:5px;
+}
+
+ /* .list > .active{ 
+  background-color:transparent;
+  color:black;
+ } */
+
+ .layout{
+  display:flex;
+  flex-direction: row;
+  justify-content:center;
+
+  
+ }
+
+ .master {
+  margin-top: 150px;
+  margin-left:100px;
+  width:300px;
+ }
+
+ .master > .active{
+  background-color:#1f252e;
+  border-radius: 10px;
+ }
+
+ .master-item{
+  margin-bottom: 20px;
+ }
+
+ .form{
+  margin-left:10px;
+ }
+
+ .form-element {
+  width: 400px;
+ }
+
+ .form-submit:hover{
+  background-color: #1f252e;
+ }
+
+ .form-submit{
+  color:black;
+  border-color: black;
+ }
+
+ .card_header{
+  background-color: #1f252e;
+  color:aliceblue;
+  height:50px;
+ }
+
+ .card_body{
+  background-color: bisque;
+  color:black;
+ }
+
+ .card-component{
+  /* margin-bottom: 50px; */
+   margin-right:30px;
+
+ }
+
+ .card-container{
+  display:grid;
+  grid-auto-columns: 300px;
+  width:1300px;
+  grid-template-columns: 25% 25% 25% 25%;
+  margin-left: 50px;
+  row-gap:30px;
+ }
+
+/* .card-container{
+  display : flex;
+  justify-content: flex-start;
+} */
+
+ .icon{
+  font-size: 2.5rem;
+  color: cornflowerblue;
+  margin-left:400px
+ }
+
+ .icon:hover{
+   color:blue
+ }
+
+ .trash-icon{
+  font-size: 1.3rem;
+  color:transparent;
+  margin-left: 10px
+ }
+
+.card-component:hover .trash-icon{
+  color:red
+}
+ 
+ .notification{
+  background-color:cornflowerblue;
+  color:ghostwhite;
+  font-size: medium;
+ }
+
+ .layout-dashboard{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  border-bottom: 2px solid #000000;
+  margin:0px 10px 10px 10px;
+
+ }
+
+ .profile{
+  border-bottom: 2px solid #000000;
+  margin:0px 10px;
+
+ }
+
+ 
+

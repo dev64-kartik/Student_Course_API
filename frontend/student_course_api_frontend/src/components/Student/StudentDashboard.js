@@ -1,0 +1,121 @@
+import axios from "axios";
+import React from "react";
+import CourseCard from "../Course/CourseFormelements/CourseCard";
+import CourseModal from "../Course/CourseModal";
+import Notification from "../Notification";
+import EditStudentModal from "./EditStudentModal";
+
+const bootstrap = window.bootstrap;
+
+export default function StudentDashboard(props)
+{   
+    const [coursedata,setCoursedata] = React.useState(props.data.enrolledCourses);
+    const [studentdata, setStudentdata] = React.useState({
+        ...props.data
+    })
+    
+    function unenrollFromCourse(courseId)
+    {   
+    
+        axios.delete(`http://localhost:8080/students/${props.data.id}/courses/${courseId}`)
+        .then((res)=>{
+            setCoursedata(coursedata.filter((course)=>{
+                return course.courseId != courseId;
+            }))
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+    
+    async function enrollIntoCourses()
+    {   
+        let toast;
+        let AlreadyenrolledCourses = [];
+        let promises=[];
+
+        for(let course of window.selectedCourses.values())
+            promises.push(axios.post(`http://localhost:8080/students/${props.data.id}/courses/${course.courseId}`,{}));
+
+        let res = await Promise.allSettled(promises);
+        let index=0;
+
+        for(let course of window.selectedCourses.values())
+        {   
+            if(res[index++].status === "rejected")
+                    AlreadyenrolledCourses.push(course);
+        }
+
+            if(AlreadyenrolledCourses.length === 0)
+                 toast = bootstrap.Toast.getOrCreateInstance(document.getElementById("notification-info-courseenrolled"));
+            else
+            {   
+                let El = document.getElementById("notification-warning-coursealreadyenrolled");
+                let message = "";
+                AlreadyenrolledCourses.forEach((course)=>{
+                    message+=`${course.name}, `;
+                    window.selectedCourses.delete(course);
+                })
+                El.childNodes[0].childNodes[0].innerHTML = "Failed to enroll in " + message;
+                toast = bootstrap.Toast.getOrCreateInstance(El);
+            }
+            toast.show();
+           // console.log(window.selectedCourses); 
+            setCoursedata((prevcoursedata)=>{
+                const newcoursedata = [...prevcoursedata];
+                window.selectedCourses.forEach((course)=>{
+                    newcoursedata.push(course);
+                })
+                return newcoursedata;
+            });
+
+    }
+
+
+    function editStudent(event)
+    {
+        let toast;
+        axios.put(`http://localhost:8080/students/${props.data.id}`,{
+          name:event.target[0].value,
+          college:event.target[1].value,
+      }).then((res)=>{
+        toast = bootstrap.Toast.getOrCreateInstance(document.getElementById("notification-info-studentupdated"));
+        toast.show();
+        setStudentdata(res.data);
+
+        }).catch((err)=>{
+
+            if(err.response.status === 409)
+                toast = bootstrap.Toast.getOrCreateInstance(document.getElementById("notification-warning-exists"));
+          
+             toast.show();
+        })
+    }
+
+
+    return (
+        <>
+        <p className="layout-dashboard">
+        <span style={{fontSize:25 + "px"}} >Student Profile</span>
+        <i className="bi bi-pencil-fill icon" data-bs-toggle="modal" data-bs-target="#editstudent"></i>
+        </p>
+        <section className="profile">
+            <p>
+            Name : {studentdata.name}
+            </p>
+            <p>
+            College : {studentdata.college}
+            </p>
+        </section>
+        <p className="layout-dashboard">
+        <span style={{fontSize:25 + "px"}} >Enrolled Courses</span>
+        <i className="bi bi-plus-circle-fill icon" data-bs-toggle="modal" data-bs-target="#newcourse"></i>
+        </p>
+        <CourseCard data={coursedata} unenroll={unenrollFromCourse}/>
+        <CourseModal enroll={enrollIntoCourses}/>
+        <EditStudentModal editStudent={editStudent}/>
+        <Notification info={true} role="notification-info-courseenrolled" message="Succesfully Enrolled in Courses !"/>
+        <Notification info={true} role="notification-info-studentupdated" message="Student Profile Updated Successfully !"/>
+        <Notification warning={true} role="notification-warning-coursealreadyenrolled"/>
+        </>
+    )
+}

@@ -57,10 +57,10 @@ public class CourseController {
 	}
 	
 	@PostMapping("/courses")
-	public ResponseEntity<String> addCourse(@RequestBody Course course)
+	public ResponseEntity<Course> addCourse(@RequestBody Course course)
 	{
 		if(db.addCourse(course))
-			return ResponseEntity.of(Optional.of("Course Added Successfully !"));
+			return ResponseEntity.of(Optional.of(course));
 		else
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 	}

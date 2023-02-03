@@ -3,7 +3,7 @@ package com.example.api.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="courseId")
 @Entity
 public class Course {
 	
@@ -22,7 +23,8 @@ public class Course {
 	private int fees;
 	private String educator;
 	
-	@JsonIgnore
+	
+	@JsonIgnoreProperties("enrolledCourses")
 	@ManyToMany(mappedBy = "enrolledCourses")
 	private List<Student> enrolledStudents = new ArrayList<>();
 	

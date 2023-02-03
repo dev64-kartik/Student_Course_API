@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import CourseCard from "../Course/CourseFormelements/CourseCard";
-import CourseModal from "../Course/CourseModal";
+import EnrollCourseModal from "../Course/EnrollCourseModal";
 import Notification from "../Notification";
 import EditStudentModal from "./EditStudentModal";
 import {useLocation,useParams} from "react-router-dom";
@@ -12,13 +12,14 @@ export default function StudentDashboard(props)
 {   
     const location = useLocation();
     const params = useParams();
-    const [coursedata,setCoursedata] = React.useState(props.data ? props.data.enrolledCourses : (location.state ? location.state.enrolledCourses : []));
+    const [coursedata,setCoursedata] = React.useState(props.data ? props.data.enrolledCourses : (location.state ? location.state.enrolledCourses || [] : []));
     const [studentdata, setStudentdata] = React.useState({
         ...props.data || location.state || {}
     })
     
+
     React.useEffect(()=>{
-        if(props.data === undefined && location.state === null)
+        if((props.data === undefined && location.state === null) || location.state.callAPI)
         {
             axios.get(`http://localhost:8080/students/${params.id}`)
             .then(res=>{
@@ -36,7 +37,7 @@ export default function StudentDashboard(props)
     function unenrollFromCourse(courseId)
     {   
     
-        axios.delete(`http://localhost:8080/students/${props.data.id}/courses/${courseId}`)
+        axios.delete(`http://localhost:8080/students/${studentdata.id}/courses/${courseId}`)
         .then((res)=>{
             setCoursedata(coursedata.filter((course)=>{
                 return course.courseId != courseId;
@@ -53,7 +54,7 @@ export default function StudentDashboard(props)
         let promises=[];
 
         for(let course of window.selectedCourses.values())
-            promises.push(axios.post(`http://localhost:8080/students/${props.data.id}/courses/${course.courseId}`,{}));
+            promises.push(axios.post(`http://localhost:8080/students/${studentdata.id}/courses/${course.courseId}`,{}));
 
         let res = await Promise.allSettled(promises);
         let index=0;
@@ -93,7 +94,7 @@ export default function StudentDashboard(props)
     function editStudent(event)
     {
         let toast;
-        axios.put(`http://localhost:8080/students/${props.data.id}`,{
+        axios.put(`http://localhost:8080/students/${studentdata.id}`,{
           name:event.target[0].value,
           college:event.target[1].value,
       }).then((res)=>{
@@ -127,10 +128,10 @@ export default function StudentDashboard(props)
         </section>
         <p className="layout-dashboard">
         <span style={{fontSize:25 + "px"}} >Enrolled Courses</span>
-        <i className="bi bi-plus-circle-fill icon" data-bs-toggle="modal" data-bs-target="#newcourse"></i>
+        <i className="bi bi-plus-circle-fill icon" data-bs-toggle="modal" data-bs-target="#enrollcourse"></i>
         </p>
         <CourseCard data={coursedata} unenroll={unenrollFromCourse}/>
-        <CourseModal enroll={enrollIntoCourses}/>
+        <EnrollCourseModal enroll={enrollIntoCourses}/>
         <EditStudentModal editStudent={editStudent} name={studentdata.name} college={studentdata.college}/>
         <Notification info={true} role="notification-info-courseenrolled" message="Succesfully Enrolled in Courses !"/>
         <Notification info={true} role="notification-info-studentupdated" message="Student Profile Updated Successfully !"/>

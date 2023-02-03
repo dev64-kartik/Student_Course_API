@@ -6,15 +6,12 @@ window.selectedCourses = new Set();
 
 export default function CourseSelector()
 {   
-    
-    const [course, setCourse] = React.useState("");
     const [coursedata,setCoursedata] = React.useState([]);
     
-
     React.useEffect(()=>{
          axios.get("http://localhost:8080/courses").then((res)=>{
             setCoursedata(res.data);
-            window.courses=res.data;
+            // window.courses=res.data;
 
          }).catch((error)=>{
             console.log(error);

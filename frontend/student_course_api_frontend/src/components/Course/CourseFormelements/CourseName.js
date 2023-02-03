@@ -1,9 +1,9 @@
 import React from "react";
 
 
-export default function CourseName()
+export default function CourseName(props)
 {   
-    const [name,setName] = React.useState("");
+    const [name,setName] = React.useState(props.name);
     return (
         <div className='row g-1 mb-3 form-element'>
             <label htmlFor='title' className='form-label' >Name</label>

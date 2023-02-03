@@ -21,7 +21,7 @@ export default function StudentCard(props)
                 <p className="card-text">Student Id: {id}</p>
                 <p className="card-text">Name: {name}</p>
                 <p className="card-text">College: {college}</p>
-                <Link to={`/students/${id}`} state={{...student}} className="btn view-dashboard-btn" >View Dashboard</Link>
+                <Link to={`/students/${id}`} state={{...student,callAPI:true}} className="btn view-dashboard-btn" >View Dashboard</Link>
             </div>
         </div>)
         }))}

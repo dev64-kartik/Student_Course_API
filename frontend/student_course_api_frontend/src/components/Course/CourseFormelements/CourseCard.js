@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 export default function CourseCard(props)
@@ -29,7 +30,12 @@ export default function CourseCard(props)
                     <p className="card-text">
                         Fees: Rs {fees} 
                     </p>
+                    {
+                     props.showDashboard ?
+                    <Link to={`/courses/${courseId}`} state={{...course}} className="btn view-dashboard-btn" >View Dashboard</Link>:""
+                    }
                 </div>
+                
             </div>)
             }))}
         </div>

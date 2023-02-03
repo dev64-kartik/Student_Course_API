@@ -3,8 +3,9 @@ import './App.css';
 import NavBar from './components/NavBar';
 import {Link, Routes,Route, Navigate} from "react-router-dom"
 import StudentMain from './components/Student/StudentMain';
-import CourseDashboard from './components/Course/CourseDashboard';
+import CourseMain from './components/Course/CourseMain';
 import StudentDashboard from './components/Student/StudentDashboard';
+import CourseDashboard from './components/Course/CourseDashboard';
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
     <NavBar />
     <Routes>
       ""
-      <Route path="/courses" element={<CourseDashboard/>}/>
+      <Route path="/courses" element={<CourseMain/>}/>
+      <Route path="/courses/:id" element={<CourseDashboard/>}/>
      {/* <Route path="/" element={<Navigate to="/students"/>}/>
       <Route path="/courses" element={
        <GetCourse viewAll={true}/>

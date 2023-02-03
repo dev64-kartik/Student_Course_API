@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function CourseEducator()
+export default function CourseEducator(props)
 {   
-    const [educator,setEducator] = React.useState("");
+    const [educator,setEducator] = React.useState(props.educator);
     return (
         <div className='row g-1 mb-3 form-element'>
        <label htmlFor='educator' className='form-label'>Educator</label>

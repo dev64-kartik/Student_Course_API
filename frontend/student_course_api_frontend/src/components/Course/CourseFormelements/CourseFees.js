@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function CourseFees()
+export default function CourseFees(props)
 {   
-    const [fees,setFees] = React.useState(0);
+    const [fees,setFees] = React.useState(props.fees);
     return (
         <div className='row g-1 mb-3 form-element'>
        <label htmlFor='fees' className='form-label'>Fees</label>

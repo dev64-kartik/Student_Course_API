@@ -4,13 +4,13 @@ import axios from "axios";
 
 const bootstrap = window.bootstrap;
 
-export default function CourseModal(props)
+export default function EnrollCourseModal(props)
 {   
 
     function handleSubmit(event)
     {
         event.preventDefault();
-        const myModal = bootstrap.Modal.getInstance((document.getElementById('newcourse')))
+        const myModal = bootstrap.Modal.getInstance((document.getElementById('enrollcourse')))
         myModal.hide();
         props.enroll();
 
@@ -18,7 +18,7 @@ export default function CourseModal(props)
     }  
 
     return (
-        <div class="modal fade" id="newcourse">
+        <div class="modal fade" id="enrollcourse">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -26,13 +26,13 @@ export default function CourseModal(props)
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form className="form" id="addstudent" onSubmit={handleSubmit}>
+      <form className="form" id="enrollintocourse" onSubmit={handleSubmit}>
         <CourseSelector/>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button form="addstudent" type="submit" id="modalsubmit" class="btn btn-primary">Enroll</button>
+        <button form="enrollintocourse" type="submit" id="modalsubmit" class="btn btn-primary">Enroll</button>
       </div>
     </div>
   </div>

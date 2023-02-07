@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.api</groupId>
-	<artifactId>StudentCourseManagement</artifactId>
+	<artifactId>StudentCourseMaster</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Student_Course_Management_API</name>
+	<name>StudentCourseMaster</name>
 	<description>Course Management API</description>
 	<properties>
 		<java.version>17</java.version>

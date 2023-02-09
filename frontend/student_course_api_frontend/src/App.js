@@ -54,7 +54,7 @@ function App() {
           element={
             <GetStudent/>
           }
-        />
+        />`
         <Route
           path="/students/add-student"
           element={

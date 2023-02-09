@@ -1,8 +1,7 @@
-package com.example.api.dao;
+package com.example.studentcoursemaster.dao;
 
+import com.example.studentcoursemaster.entities.Student;
 import org.springframework.data.repository.CrudRepository;
-
-import com.example.api.entities.Student;
 
 public interface StudentRepository extends CrudRepository<Student,Integer>{
 	

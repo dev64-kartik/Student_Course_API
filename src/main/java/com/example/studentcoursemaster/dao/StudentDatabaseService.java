@@ -1,4 +1,4 @@
-package com.example.api.dao;
+package com.example.studentcoursemaster.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api.entities.Course;
-import com.example.api.entities.Student;
+import com.example.studentcoursemaster.entities.Student;
 
 @Service
 public class StudentDatabaseService {

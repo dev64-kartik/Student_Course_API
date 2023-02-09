@@ -1,4 +1,4 @@
-package com.example.api.utils;
+package com.example.studentcoursemaster.utils;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,8 @@
-package com.example.api.dao;
+package com.example.studentcoursemaster.dao;
 
-import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.example.api.entities.Course;
+import com.example.studentcoursemaster.entities.Course;
 
 public interface CourseRepository  extends CrudRepository<Course,Integer>{
 	

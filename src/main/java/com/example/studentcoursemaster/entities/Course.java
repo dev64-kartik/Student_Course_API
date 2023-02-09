@@ -1,4 +1,4 @@
-package com.example.api.entities;
+package com.example.studentcoursemaster.entities;
 
 import java.util.ArrayList;
 import java.util.List;

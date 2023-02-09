@@ -1,8 +1,9 @@
-package com.example.api.controllers;
+package com.example.studentcoursemaster.controllers;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.example.studentcoursemaster.dao.CourseDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.api.dao.CourseDatabaseService;
-import com.example.api.entities.Course;
+import com.example.studentcoursemaster.entities.Course;
 
 
 @CrossOrigin

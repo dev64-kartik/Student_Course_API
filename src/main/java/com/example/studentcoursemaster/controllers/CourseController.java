@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.studentcoursemaster.dao.CourseDatabaseService;
+import com.example.studentcoursemaster.dto.CourseDTO;
+import com.example.studentcoursemaster.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,27 +26,23 @@ import com.example.studentcoursemaster.entities.Course;
 public class CourseController {
 	
 	@Autowired
-	private CourseDatabaseService db;
+	private CourseService courseService;
 	
 	
 	@GetMapping("/courses")
-	public ResponseEntity<List<Course>> getCourses()
+	public ResponseEntity<List<CourseDTO>> getCourses()
 	{
-		List<Course> courses = db.getAllCourses();
+		List<CourseDTO> courses = courseService.getAllCourses();
 		if(courses.isEmpty())
-		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
 		else
-		{
 			return ResponseEntity.of(Optional.of(courses));
-		}
 	}
 	
 	@GetMapping("/courses/{id}")
-	public ResponseEntity<Course> getCourse(@PathVariable int id)
+	public ResponseEntity<CourseDTO> getCourse(@PathVariable String id)
 	{   
-		Course course = db.getCourseById(id);
+		CourseDTO course = courseService.getCourse(id);
 		if(course==null)
 		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -55,60 +53,44 @@ public class CourseController {
 		}
 				
 	}
-	
+
 	@PostMapping("/courses")
-	public ResponseEntity<Course> addCourse(@RequestBody Course course)
+	public ResponseEntity<CourseDTO> addCourse(@RequestBody CourseDTO course)
 	{
-		if(db.addCourse(course))
+		CourseDTO courseDTO = courseService.addCourse(course);
+		if(courseDTO != null)
 			return ResponseEntity.of(Optional.of(course));
 		else
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 	}
 	
 	@PutMapping("/courses/{id}")
-	public ResponseEntity<Course> updateCourse(@RequestBody Course course,@PathVariable int id)
+	public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO course,@PathVariable String id)
 	{
-		Course crs = db.getCourseById(id);
+		course.setId(id);
+		CourseDTO crs = courseService.updateCourse(course);
 		if(crs==null)
-		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
 		else
-		{   
-			course.setCourseId(id);
-			if(db.addCourse(course))
-			{   
-				return ResponseEntity.of(Optional.of(course));
-			}
-			else
-				return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
+			return ResponseEntity.of(Optional.of(crs));
 	}
 	
 	//Delete specific course
 	
 	@DeleteMapping("/courses/{id}")
-	public ResponseEntity<String> deleteCourse(@PathVariable int id)
+	public ResponseEntity<String> deleteCourse(@PathVariable String id)
 	{
-		Course course = db.getCourseById(id);
-		if(course==null)
-		{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		else
-		{   
-			db.deleteCourse(id);
-			return ResponseEntity.of(Optional.of("Course Deleted Successfully !"));
-		}
+		courseService.deleteCourse(id);
+		return ResponseEntity.of(Optional.of("Course Deleted Successfully !"));
 	}
 	
 	
-	// Delete all courses
+	/*// Delete all courses
 	@DeleteMapping("/courses")
 	public ResponseEntity<String> deleteAllCourses()
 	{   
 		db.deleteAllCourses();
 		return ResponseEntity.of(Optional.of("All Courses Deleted !"));
-	}
+	}*/
 
 }

@@ -9,8 +9,8 @@ export default function StudentCard(props)
     return (
         <div className="card-container">
         {data.map((student=>{
-            const {name,id,college} = student;
-            return (<div className="card card-component" id={id}>
+            const {name,studentId,college} = student;
+            return (<div className="card card-component" id={studentId}>
             {/* <p className="card-header text-center card_header">
                 <span>{name}</span>
                 <span>
@@ -18,10 +18,10 @@ export default function StudentCard(props)
                 </span>
                 </p> */}
             <div className="card-body card_body">
-                <p className="card-text">Student Id: {id}</p>
+                <p className="card-text">Student Id: {studentId}</p>
                 <p className="card-text">Name: {name}</p>
                 <p className="card-text">College: {college}</p>
-                <Link to={`/students/${id}`} state={{...student,callAPI:true}} className="btn view-dashboard-btn" >View Dashboard</Link>
+                <Link to={`/students/${studentId}`} state={{...student,callAPI:true}} className="btn view-dashboard-btn" >View Dashboard</Link>
             </div>
         </div>)
         }))}

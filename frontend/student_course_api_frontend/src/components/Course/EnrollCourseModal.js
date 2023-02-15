@@ -10,12 +10,14 @@ export default function EnrollCourseModal(props)
     function handleSubmit(event)
     {
         event.preventDefault();
+        if(window.selectedCourses.size !== 0)
+        {
         const myModal = bootstrap.Modal.getInstance((document.getElementById('enrollcourse')))
         myModal.hide();
         props.enroll();
-
-       
+        }
     }  
+
 
     return (
         <div class="modal fade" id="enrollcourse">

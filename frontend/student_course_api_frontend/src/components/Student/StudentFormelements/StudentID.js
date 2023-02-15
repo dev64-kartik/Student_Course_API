@@ -13,9 +13,9 @@ export default function StudentID()
         <div className='row g-1 mb-3 form-element'>
              
              <label htmlFor='id' className="form-label">Id</label>
-             <input type="number" className='form-control'
+             <input type="text" className='form-control'
               id = 'id' name='id' placeholder="---Your Registered Id---"  value={ID} onChange={handleChange}
-              required min={0} max={100}/>
+              required/>
             
             </div>
 

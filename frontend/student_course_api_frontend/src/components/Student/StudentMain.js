@@ -44,7 +44,7 @@ export default function StudentMain()
         //         console.log(err);
         // })
         const studentdata = allstudentdata.find((student)=>{
-            return student.id == event.target[0].value;
+            return student.studentId == event.target[0].value;
         })
         if(!studentdata)
         {
@@ -53,7 +53,7 @@ export default function StudentMain()
         }
         else
         {
-            navigate(`/students/${studentdata.id}`, {state:
+            navigate(`/students/${studentdata.studentId}`, {state:
                 studentdata
             })
         }

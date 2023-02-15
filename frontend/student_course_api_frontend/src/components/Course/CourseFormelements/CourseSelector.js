@@ -7,7 +7,10 @@ window.selectedCourses = new Set();
 export default function CourseSelector()
 {   
     const [coursedata,setCoursedata] = React.useState([]);
+   
     
+   
+
     React.useEffect(()=>{
          axios.get("http://localhost:8080/courses").then((res)=>{
             setCoursedata(res.data);
@@ -16,6 +19,7 @@ export default function CourseSelector()
          }).catch((error)=>{
             console.log(error);
          })
+
     },[]);
 
     return (
@@ -44,7 +48,6 @@ export default function CourseSelector()
                 }
                 showArrow={true}
                 placeholder="---Choose Course---"
-
                 />
        </div>
     )

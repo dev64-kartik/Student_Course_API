@@ -17,13 +17,12 @@ export default function StudentDashboard(props)
         ...props.data || location.state || {}
     })
     
-
     React.useEffect(()=>{
         if((props.data === undefined && location.state === null) || location.state.callAPI)
         {
             axios.get(`http://localhost:8080/students/${params.id}`)
             .then(res=>{
-                setStudentdata({name:res.data.name, id:res.data.id, college:res.data.college})
+                setStudentdata({name:res.data.name, studentId:res.data.studentId, college:res.data.college})
                 setCoursedata(res.data.enrolledCourses);
             })
             .catch(err=>{
@@ -37,7 +36,7 @@ export default function StudentDashboard(props)
     function unenrollFromCourse(courseId)
     {   
     
-        axios.delete(`http://localhost:8080/students/${studentdata.id}/courses/${courseId}`)
+        axios.delete(`http://localhost:8080/students/${studentdata.studentId}/courses/${courseId}`)
         .then((res)=>{
             setCoursedata(coursedata.filter((course)=>{
                 return course.courseId != courseId;
@@ -52,9 +51,8 @@ export default function StudentDashboard(props)
         let toast;
         let AlreadyenrolledCourses = [];
         let promises=[];
-
         for(let course of window.selectedCourses.values())
-            promises.push(axios.post(`http://localhost:8080/students/${studentdata.id}/courses/${course.courseId}`,{}));
+            promises.push(axios.post(`http://localhost:8080/students/${studentdata.studentId}/courses/${course.courseId}`,{}));
 
         let res = await Promise.allSettled(promises);
         let index=0;
@@ -79,7 +77,7 @@ export default function StudentDashboard(props)
                 toast = bootstrap.Toast.getOrCreateInstance(El);
             }
             toast.show();
-           // console.log(window.selectedCourses); 
+          // let result = await CourseSelectorRef.current.resetSelectedValues();
             setCoursedata((prevcoursedata)=>{
                 const newcoursedata = [...prevcoursedata];
                 window.selectedCourses.forEach((course)=>{
@@ -87,6 +85,7 @@ export default function StudentDashboard(props)
                 })
                 return newcoursedata;
             });
+            window.selectedCourses.clear();
 
     }
 
@@ -94,7 +93,7 @@ export default function StudentDashboard(props)
     function editStudent(event)
     {
         let toast;
-        axios.put(`http://localhost:8080/students/${studentdata.id}`,{
+        axios.put(`http://localhost:8080/students/${studentdata.studentId}`,{
           name:event.target[0].value,
           college:event.target[1].value,
       }).then((res)=>{
@@ -131,7 +130,7 @@ export default function StudentDashboard(props)
         <i className="bi bi-plus-circle-fill icon" data-bs-toggle="modal" data-bs-target="#enrollcourse"></i>
         </p>
         <CourseCard data={coursedata} unenroll={unenrollFromCourse}/>
-        <EnrollCourseModal enroll={enrollIntoCourses}/>
+        <EnrollCourseModal enroll={enrollIntoCourses} />
         <EditStudentModal editStudent={editStudent} name={studentdata.name} college={studentdata.college}/>
         <Notification info={true} role="notification-info-courseenrolled" message="Succesfully Enrolled in Courses !"/>
         <Notification info={true} role="notification-info-studentupdated" message="Student Profile Updated Successfully !"/>

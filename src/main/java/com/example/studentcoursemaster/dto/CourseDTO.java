@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Component
-@JsonPropertyOrder({"courseId","name","college","enrolledCourses"})
+@JsonPropertyOrder({"courseId", "name", "college", "enrolledCourses"})
 public class CourseDTO {
 
     @JsonProperty("courseId")

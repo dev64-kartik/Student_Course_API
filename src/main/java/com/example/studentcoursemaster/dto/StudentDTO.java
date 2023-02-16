@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({"studentId","name","college","enrolledCourses"})
+@JsonPropertyOrder({"studentId", "name", "college", "enrolledCourses"})
 public class StudentDTO {
 
     @JsonProperty("studentId")

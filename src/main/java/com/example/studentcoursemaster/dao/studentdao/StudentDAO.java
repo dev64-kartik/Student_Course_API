@@ -38,7 +38,7 @@ public class StudentDAO {
     }
 
     public void UnenrollFromCourse(String studentId, String courseId) {
-        studentRepository.UnenrollStudentFromCourse(studentId,courseId);
+        studentRepository.UnenrollStudentFromCourse(studentId, courseId);
     }
 
 }

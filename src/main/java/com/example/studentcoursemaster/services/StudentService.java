@@ -1,14 +1,11 @@
 package com.example.studentcoursemaster.services;
 
 import com.example.studentcoursemaster.dao.studentdao.StudentDAO;
-import com.example.studentcoursemaster.dto.CourseDTO;
 import com.example.studentcoursemaster.dto.StudentDTO;
-import com.example.studentcoursemaster.entities.Course;
 import com.example.studentcoursemaster.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class StudentService {
             return null;
         }
         StudentDTO studentDTO = new StudentDTO(
-                student.getStudentId(),student.getName(),student.getCollege(),new HashSet<>());
+                student.getStudentId(), student.getName(), student.getCollege(), new HashSet<>());
         return studentDTO;
     }
 
@@ -47,6 +44,7 @@ public class StudentService {
         return convertToDTO(studentDAO.addStudent(convertToEntity(studentDTO)));
 
     }
+
     public StudentDTO updateStudent(StudentDTO studentDTO) {
         Student student = convertToEntity(studentDTO);
         StudentDTO newStudentDTO = convertToDTO(studentDAO.updateStudent(student));
@@ -64,7 +62,7 @@ public class StudentService {
     }
 
     public void UnenrolLStudentFromCourse(String studentId, String courseId) {
-        studentDAO.UnenrollFromCourse(studentId,courseId);
+        studentDAO.UnenrollFromCourse(studentId, courseId);
     }
 
 }

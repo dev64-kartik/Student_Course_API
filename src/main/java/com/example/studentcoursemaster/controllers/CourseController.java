@@ -3,7 +3,6 @@ package com.example.studentcoursemaster.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.studentcoursemaster.dao.CourseDatabaseService;
 import com.example.studentcoursemaster.dto.CourseDTO;
 import com.example.studentcoursemaster.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.studentcoursemaster.entities.Course;
 
 
 @CrossOrigin

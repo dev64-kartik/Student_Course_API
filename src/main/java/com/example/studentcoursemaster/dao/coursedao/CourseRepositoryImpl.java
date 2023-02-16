@@ -2,18 +2,22 @@ package com.example.studentcoursemaster.dao.coursedao;
 
 import com.example.studentcoursemaster.dto.CourseDTO;
 import com.example.studentcoursemaster.entities.Course;
-import com.example.studentcoursemaster.entities.Student;
 import com.example.studentcoursemaster.entities.Student_Course;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class CourseRepositoryImpl implements CourseRepository {
@@ -25,7 +29,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
         List<AggregationOperation> agg = new ArrayList<>(Arrays.asList(
                 Aggregation.lookup("Student_Courses", "_id", "courseId", "enrolledStudentId"),
-                Aggregation.lookup("Students","enrolledStudentId.studentId","_id","enrolledStudents"),
+                Aggregation.lookup("Students", "enrolledStudentId.studentId", "_id", "enrolledStudents"),
                 new ProjectionOperation().andExclude("enrolledStudentId")
         ));
 
@@ -80,6 +84,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     public void deleteCourse(String id) {
         Query query = new Query(Criteria.where("courseId").is(id));
         mongoTemplate.remove(query, Course.class);
+        mongoTemplate.remove(query, Student_Course.class);
     }
 
 }

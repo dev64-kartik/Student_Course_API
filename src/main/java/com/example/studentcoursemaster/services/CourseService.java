@@ -3,7 +3,6 @@ package com.example.studentcoursemaster.services;
 import com.example.studentcoursemaster.dao.coursedao.CourseDAO;
 import com.example.studentcoursemaster.dto.CourseDTO;
 import com.example.studentcoursemaster.entities.Course;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class CourseService {
             return null;
         }
         CourseDTO courseDTO = new CourseDTO(
-                course.getCourseId(),course.getName(),course.getFees(),course.getEducator(),new ArrayList<>());
+                course.getCourseId(), course.getName(), course.getFees(), course.getEducator(), new ArrayList<>());
         return courseDTO;
     }
 
@@ -37,12 +36,12 @@ public class CourseService {
     }
 
     public CourseDTO getCourse(String id) {
-            return courseDAO.getCourse(id);
+        return courseDAO.getCourse(id);
     }
 
     public CourseDTO addCourse(CourseDTO courseDTO) {
 
-            return convertToDTO(courseDAO.addCourse(convertToEntity(courseDTO)));
+        return convertToDTO(courseDAO.addCourse(convertToEntity(courseDTO)));
     }
 
     public CourseDTO updateCourse(CourseDTO courseDTO) {
